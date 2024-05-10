@@ -1,5 +1,8 @@
 
 import './App.css';
+import CoachLayout from './components/CoachLayout.js'
+import ReservationForm from './components/ReservationForm.js'
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [seats, setSeats] = useState([]);
@@ -12,9 +15,11 @@ function App() {
 
   const fetchSeats = async () => {
     try {
-      const response = await fetch('http://your-backend-api-url/seats');
+      const response = await fetch('http://localhost:8090/seat/getSeats');
       const data = await response.json();
+      
       setSeats(data);
+      console.log(seats);
     } catch (error) {
       console.error('Error fetching seat data:', error);
     }
@@ -35,7 +40,7 @@ function App() {
   const handleReservation = async () => {
     // Send reservation request to backend API
     try {
-      const response = await fetch('http://your-backend-api-url/reserve', {
+      const response = await fetch('http://localhost:8090/seat/addSeat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
